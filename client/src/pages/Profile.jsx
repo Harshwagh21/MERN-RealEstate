@@ -144,6 +144,25 @@ export default function Profile() {
     }
   };
 
+  const handleListingDelete = async (listingId) => {
+    try {
+      const res = await fetch(`/api/listing/delete/${listingId}`, {
+        method: "DELETE",
+      });
+      const data = await res.json();
+      if (data === false) {
+        console.log(error.message);
+        return;
+      }
+
+      setUserListings((prev) =>
+        prev.filter((listing) => listing._id !== listingId)
+      );
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   return (
     <div className="p-3 max-w-lg mx-auto">
       <h1 className="text-3xl font-semibold text-center my-7">Profile</h1>
@@ -242,58 +261,63 @@ export default function Profile() {
         </p>
       </div>
 
-      {userListings &&
-        userListings.length > 0 &&
+      {userListings && userListings.length > 0 && (
         <div className="flex flex-col gap-1">
-          <h1 className="text-center mt-7 mb-2 text-2xl font-semibold">Your Lisitngs</h1>
-        {userListings.map((listing) => (
-          <div
-            key={listing._id}
-            className="border rounded-lg p-3 m-2 flex gap-4 bg-slate-200 justify-between items-center"
-          >
-            <Link to={`/listing/${listing._id}`}>
-              <img
-                src={listing.imageUrls[0]}
-                alt="Listing Cover"
-                className="h-18 w-24 object-contain rounded-lg"
-              />
-            </Link>
-            <Link
-              className="flex-1 text-slate-800 font-semibold hover:underline truncate"
-              to={`/listing/${listing._id}`}
+          <h1 className="text-center mt-7 mb-2 text-2xl font-semibold">
+            Your Lisitngs
+          </h1>
+          {userListings.map((listing) => (
+            <div
+              key={listing._id}
+              className="border rounded-lg p-3 m-2 flex gap-4 bg-slate-200 justify-between items-center"
             >
-              <p>{listing.name}</p>
-            </Link>
+              <Link to={`/listing/${listing._id}`}>
+                <img
+                  src={listing.imageUrls[0]}
+                  alt="Listing Cover"
+                  className="h-18 w-24 object-contain rounded-lg"
+                />
+              </Link>
+              <Link
+                className="flex-1 text-slate-800 font-semibold hover:underline truncate"
+                to={`/listing/${listing._id}`}
+              >
+                <p>{listing.name}</p>
+              </Link>
 
-            <div className="items-center gap-4 ">
-              <button className="text-green-700 font-semibold rounded-lg p-1 px-3 transition duration-300 ease-in-out hover:bg-green-200">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  x="0px"
-                  y="0px"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 32 32"
+              <div className="items-center gap-4 ">
+                <button className="text-green-700 font-semibold rounded-lg p-1 px-3 transition duration-300 ease-in-out hover:bg-green-200">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    x="0px"
+                    y="0px"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 32 32"
+                  >
+                    <path d="M 23.90625 3.96875 C 22.859375 3.96875 21.8125 4.375 21 5.1875 L 5.1875 21 L 5.125 21.3125 L 4.03125 26.8125 L 3.71875 28.28125 L 5.1875 27.96875 L 10.6875 26.875 L 11 26.8125 L 26.8125 11 C 28.4375 9.375 28.4375 6.8125 26.8125 5.1875 C 26 4.375 24.953125 3.96875 23.90625 3.96875 Z M 23.90625 5.875 C 24.410156 5.875 24.917969 6.105469 25.40625 6.59375 C 26.378906 7.566406 26.378906 8.621094 25.40625 9.59375 L 24.6875 10.28125 L 21.71875 7.3125 L 22.40625 6.59375 C 22.894531 6.105469 23.402344 5.875 23.90625 5.875 Z M 20.3125 8.71875 L 23.28125 11.6875 L 11.1875 23.78125 C 10.53125 22.5 9.5 21.46875 8.21875 20.8125 Z M 6.9375 22.4375 C 8.136719 22.921875 9.078125 23.863281 9.5625 25.0625 L 6.28125 25.71875 Z"></path>
+                  </svg>
+                </button>
+                <button
+                  onClick={() => handleListingDelete(listing._id)}
+                  className="text-red-700 font-semibold rounded-lg p-1 px-3 transition duration-300 ease-in-out hover:bg-red-200"
                 >
-                  <path d="M 23.90625 3.96875 C 22.859375 3.96875 21.8125 4.375 21 5.1875 L 5.1875 21 L 5.125 21.3125 L 4.03125 26.8125 L 3.71875 28.28125 L 5.1875 27.96875 L 10.6875 26.875 L 11 26.8125 L 26.8125 11 C 28.4375 9.375 28.4375 6.8125 26.8125 5.1875 C 26 4.375 24.953125 3.96875 23.90625 3.96875 Z M 23.90625 5.875 C 24.410156 5.875 24.917969 6.105469 25.40625 6.59375 C 26.378906 7.566406 26.378906 8.621094 25.40625 9.59375 L 24.6875 10.28125 L 21.71875 7.3125 L 22.40625 6.59375 C 22.894531 6.105469 23.402344 5.875 23.90625 5.875 Z M 20.3125 8.71875 L 23.28125 11.6875 L 11.1875 23.78125 C 10.53125 22.5 9.5 21.46875 8.21875 20.8125 Z M 6.9375 22.4375 C 8.136719 22.921875 9.078125 23.863281 9.5625 25.0625 L 6.28125 25.71875 Z"></path>
-                </svg>
-              </button>
-              <button className="text-red-700 font-semibold rounded-lg p-1 px-3 transition duration-300 ease-in-out hover:bg-red-200">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  x="0px"
-                  y="0px"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M 10 2 L 9 3 L 4 3 L 4 5 L 5 5 L 5 20 C 5 20.522222 5.1913289 21.05461 5.5683594 21.431641 C 5.9453899 21.808671 6.4777778 22 7 22 L 17 22 C 17.522222 22 18.05461 21.808671 18.431641 21.431641 C 18.808671 21.05461 19 20.522222 19 20 L 19 5 L 20 5 L 20 3 L 15 3 L 14 2 L 10 2 z M 7 5 L 17 5 L 17 20 L 7 20 L 7 5 z M 9 7 L 9 18 L 11 18 L 11 7 L 9 7 z M 13 7 L 13 18 L 15 18 L 15 7 L 13 7 z"></path>
-                </svg>
-              </button>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    x="0px"
+                    y="0px"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M 10 2 L 9 3 L 4 3 L 4 5 L 5 5 L 5 20 C 5 20.522222 5.1913289 21.05461 5.5683594 21.431641 C 5.9453899 21.808671 6.4777778 22 7 22 L 17 22 C 17.522222 22 18.05461 21.808671 18.431641 21.431641 C 18.808671 21.05461 19 20.522222 19 20 L 19 5 L 20 5 L 20 3 L 15 3 L 14 2 L 10 2 z M 7 5 L 17 5 L 17 20 L 7 20 L 7 5 z M 9 7 L 9 18 L 11 18 L 11 7 L 9 7 z M 13 7 L 13 18 L 15 18 L 15 7 L 13 7 z"></path>
+                  </svg>
+                </button>
+              </div>
             </div>
-          </div>
-        ))}
-        </div>}
+          ))}
+        </div>
+      )}
     </div>
   );
 }
