@@ -275,7 +275,7 @@ export default function Profile() {
                 <img
                   src={listing.imageUrls[0]}
                   alt="Listing Cover"
-                  className="h-18 w-24 object-contain rounded-lg"
+                  className="h-[70px] w-24 rounded-lg"
                 />
               </Link>
               <Link
