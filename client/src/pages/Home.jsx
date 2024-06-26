@@ -5,6 +5,7 @@ import { Navigation } from 'swiper/modules';
 import SwiperCore from 'swiper';
 import 'swiper/css/bundle';
 import ListingItem from '../components/ListingItem';
+import Footer from '../components/Footer';
 
 export default function Home() {
 
@@ -56,7 +57,7 @@ export default function Home() {
         </h1>
         <div className="text-cyan-400 text-xs sm:text-sm">Wagh Estates will help you to find you a perfect place fast, easy and comfortable,
           <br />
-          we have wide range of properties to choose from.
+          we have wide range of properties to choose. 
         </div>
         <Link to={'/search'} className='text-xs sm:text-sm text-indigo-700 font-bold hover:text-indigo-500 duration-300'>
         Lets Get Started...
@@ -125,6 +126,7 @@ export default function Home() {
         )}
 
       </div>
+      <Footer/>
     </div>
   )
 }

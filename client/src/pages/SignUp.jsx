@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import {Link, json, useNavigate} from 'react-router-dom';
 import Oauth from '../components/Oauth';
+import Footer from '../components/Footer';
 
 export default function SignUp() {
   const [formData, setformData] = useState({})
@@ -43,6 +44,7 @@ export default function SignUp() {
   };
 
   return (
+    <div>
     <div className='p-3 max-w-lg mx-auto'>
       <h1 className='text-3xl text-center font-semibold my-7'>Sign Up</h1>
       <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
@@ -59,6 +61,11 @@ export default function SignUp() {
         </Link>
       </div>
       {error && <p className='text-red-500 mt-5'>{error}</p>}
+    </div>
+    <div className='mt-44 pt-32'>
+    <Footer/>
+
+    </div>
     </div>
   )
 }

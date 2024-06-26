@@ -21,6 +21,7 @@ import {
 } from "../redux/user/userSlice.js";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import Footer from "../components/Footer.jsx";
 
 export default function Profile() {
   const { currentUser, loading, error } = useSelector((state) => state.user);
@@ -164,6 +165,7 @@ export default function Profile() {
   };
 
   return (
+    <div>
     <div className="p-3 max-w-lg mx-auto">
       <h1 className="text-3xl font-semibold text-center my-7">Profile</h1>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
@@ -320,6 +322,12 @@ export default function Profile() {
           ))}
         </div>
       )}
+      
+    </div>
+    <div className="pt-12">
+
+      <Footer/>
+      </div>
     </div>
   );
 }

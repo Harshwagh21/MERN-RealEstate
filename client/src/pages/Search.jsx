@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import ListingItem from "../components/ListingItem";
+import Footer from "../components/Footer";
 
 export default function Search() {
     const navigate = useNavigate();
@@ -128,6 +129,7 @@ export default function Search() {
       setListings([...listings, ...data]);
     }
   return (
+  <div>
     <div className="flex flex-col md:flex-row">
       <div className="mt-1 p-7 border-b-2 md:border-r-2 md:min-h-screen">
         <form onSubmit={handleSubmit} className="flex flex-col gap-8">
@@ -239,6 +241,8 @@ export default function Search() {
             )}
         </div>
       </div>
+    </div>
+    <Footer/>
     </div>
   );
 }

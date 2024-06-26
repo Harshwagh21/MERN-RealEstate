@@ -15,6 +15,7 @@ import {
     FaShare,
   } from 'react-icons/fa';
 import Contact from '../components/Contact';
+import Footer from '../components/Footer';
 
 export default function Listing() {
     SwiperCore.use([Navigation]);
@@ -81,7 +82,7 @@ export default function Listing() {
               Link copied!
             </p>
           )}
-          <div className='flex flex-col max-w-4xl mx-auto p-3 my-7 gap-4'>
+          <div className='flex flex-col max-w-4xl mx-auto p-3 my-7 gap-4 mb-20'>
             <p className='text-2xl font-semibold'>
               {listing.name} - ₹{' '}
               {listing.offer
@@ -138,6 +139,7 @@ export default function Listing() {
           </div>
         </>
         )}
+        <Footer/>
     </main>
   )
 }
